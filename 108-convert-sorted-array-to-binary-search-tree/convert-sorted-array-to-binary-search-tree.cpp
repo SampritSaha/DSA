@@ -11,47 +11,22 @@
  */
 class Solution {
 public:
-    
-    TreeNode* buildBST(vector<int>& nums, int left, int right) {
-        if (left > right) return nullptr;
-
-        int mid = (left + right) / 2;
-        TreeNode* root = new TreeNode(nums[mid]);
-
-        root->left = buildBST(nums, left, mid - 1);
-        root->right = buildBST(nums, mid + 1, right);
+    TreeNode* bst(vector<int>& nums, int s, int e){
+        if(s>e){
+            return nullptr;
+        }
+        int mid = (s+e)/2;
+        TreeNode* root = new TreeNode;
+        root->val = nums[mid];
+        root->left = bst(nums,s,mid-1);
+        root->right = bst(nums,mid+1,e);
 
         return root;
     }
-
     TreeNode* sortedArrayToBST(vector<int>& nums) {
-        return buildBST(nums, 0, nums.size() - 1);
+        int e = nums.size()- 1;
+        int s=0;
+        TreeNode* ans = bst(nums, s, e);
+        return ans;
     }
-
-    
-    
-    
-    //not working by me
-    // TreeNode* sortedArrayToBST(vector<int>& nums) {
-
-    //     int n = nums.size();
-    //     TreeNode* root = new TreeNode(nums[n/2]);
-
-    //     TreeNode* temp = root;
-    //     for (int i = n/2-1; i >= 0; i--) {
-    //         temp->left = new TreeNode(nums[i]);
-    //         temp = temp->left;
-    //     }
-
-    //     temp = root;
-    //     temp->right = new TreeNode(nums[n-1]);
-    //     temp = temp->right;
-
-    //     for (int i = n - 2; i > n/2; i--) {
-    //         temp->left = new TreeNode(nums[i]);
-    //         temp = temp->left;
-    //     }
-
-    //     return root;
-    // }
 };
